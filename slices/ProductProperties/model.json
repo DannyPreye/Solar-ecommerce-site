@@ -1,0 +1,27 @@
+{
+  "id": "product_properties",
+  "type": "SharedSlice",
+  "name": "ProductProperties",
+  "description": "ProductProperties",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {},
+      "items": {
+        "property": {
+          "type": "Text",
+          "config": { "label": "Property", "placeholder": "" }
+        },
+        "value": {
+          "type": "Text",
+          "config": { "label": "Value", "placeholder": "" }
+        }
+      }
+    }
+  ]
+}

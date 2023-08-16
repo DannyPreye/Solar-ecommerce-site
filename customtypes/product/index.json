@@ -1,0 +1,81 @@
+{
+  "id": "product",
+  "label": "Product",
+  "format": "custom",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": { "config": { "label": "UID" }, "type": "UID" },
+      "name": {
+        "type": "Text",
+        "config": { "label": "Name", "placeholder": "" }
+      },
+      "featured_image": {
+        "type": "Image",
+        "config": {
+          "label": "Featured image",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
+      "images": {
+        "type": "Group",
+        "config": {
+          "label": "Images",
+          "fields": {
+            "image": {
+              "type": "Image",
+              "config": { "label": "Image", "constraint": {}, "thumbnails": [] }
+            }
+          }
+        }
+      },
+      "short_description": {
+        "type": "Text",
+        "config": { "label": "Short Description", "placeholder": "" }
+      },
+      "price": {
+        "type": "Number",
+        "config": { "label": "Price", "placeholder": "" }
+      },
+      "price_before_discount": {
+        "type": "Number",
+        "config": { "label": "Price before discount", "placeholder": "" }
+      },
+      "category": {
+        "type": "Link",
+        "config": {
+          "label": "Category",
+          "select": "document",
+          "customtypes": ["product_category"]
+        }
+      },
+      "long_description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Long Description",
+          "placeholder": "",
+          "allowTargetBlank": true,
+          "multi": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+        }
+      },
+      "best_selling": {
+        "type": "Boolean",
+        "config": {
+          "label": "Best Selling",
+          "default_value": false,
+          "placeholder_true": "true",
+          "placeholder_false": "false"
+        }
+      },
+      "slices": {
+        "type": "Slices",
+        "fieldset": "Slice Zone",
+        "config": {
+          "choices": { "product_properties": { "type": "SharedSlice" } }
+        }
+      }
+    }
+  }
+}

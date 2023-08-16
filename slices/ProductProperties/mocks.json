@@ -1,0 +1,30 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {},
+		"items": [
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": [
+					[
+						"property",
+						{
+							"__TYPE__": "FieldContent",
+							"value": "how",
+							"type": "Text"
+						}
+					],
+					[
+						"value",
+						{
+							"__TYPE__": "FieldContent",
+							"value": "bush",
+							"type": "Text"
+						}
+					]
+				]
+			}
+		]
+	}
+]

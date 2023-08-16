@@ -1,0 +1,131 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  fullName      String?
+  email         String?   @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  phone         String?   @unique
+  address       Address?
+  createdAt     DateTime  @default(now())
+  role          Role      @default(USER)
+  order         Order[]
+  reviews       Reviews[]
+  hash          String
+  salt          String
+  token         Token?
+  points        Int       @default(0)
+  referalCode   String?   @unique
+  referredBy    User?     @relation("referral", fields: [id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  referrees     User[]    @relation("referral")
+}
+
+model Token {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique @db.ObjectId
+  token  String
+}
+
+model VerificationToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Address {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  city       String
+  street     String
+  user       User    @relation(fields: [userId], references: [id])
+  userId     String  @unique @db.ObjectId
+  isVerified Boolean @default(false)
+}
+
+enum Role {
+  ADMIN
+  VENDOR
+  INSTALLER
+  USER
+}
+
+model Order {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  user     User     @relation(fields: [userId], references: [id])
+  userId   String   @db.ObjectId
+  products String[]
+}
+
+model Vendor {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  products        Product[]
+  shop_name       String
+  profile_picture String
+  description     String
+  cac_number      String
+}
+
+model Product {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  price    Float
+  images   String[]
+  details  String
+  vendor   Vendor?  @relation(fields: [vendorId], references: [id])
+  vendorId String   @unique @db.ObjectId
+  in_stock Boolean  @default(true)
+  slug     String   @unique
+  orderId  String   @unique @db.ObjectId
+}
+
+model Reviews {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  rating     Int
+  comment    String
+  reviewer   User   @relation(fields: [reviewerId], references: [id])
+  reviewerId String @unique @db.ObjectId
+  productId  String @unique
+}

@@ -1,0 +1,45 @@
+{
+  "id": "product_category",
+  "label": "Product Category",
+  "format": "custom",
+  "repeatable": true,
+  "status": true,
+  "json": {
+    "Main": {
+      "uid": { "config": { "label": "UID" }, "type": "UID" },
+      "title": {
+        "type": "Text",
+        "config": { "label": "Title", "placeholder": "" }
+      },
+      "description": {
+        "type": "Text",
+        "config": { "label": "Description", "placeholder": "" }
+      },
+      "main_category": {
+        "type": "Boolean",
+        "config": {
+          "label": "Main Category",
+          "default_value": false,
+          "placeholder_true": "true",
+          "placeholder_false": "false"
+        }
+      },
+      "sub_category": {
+        "type": "Group",
+        "config": {
+          "label": "Sub Category",
+          "fields": {
+            "category": {
+              "type": "Link",
+              "config": {
+                "label": "Category",
+                "select": "document",
+                "customtypes": ["product_category"]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
