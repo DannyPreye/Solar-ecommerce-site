@@ -63,12 +63,12 @@ const Nav = ({ categories }: Props) => {
                     </Link>
                     <form
                         method='post'
-                        className='lg:flex hidden  w-full max-w-[550px] gap-2 '
+                        className='lg:flex hidden px-2 w-full max-w-[550px] gap-2 '
                     >
                         <input
                             type='text'
                             placeholder='Search Products...'
-                            className='flex-1 text-c1b px-3 focus:outline-none   h-[36px] rounded-md '
+                            className='flex-1 flex-shrink text-c1b px-3 focus:outline-none   h-[36px] rounded-md '
                         />
                         <Button
                             variant='contained'
