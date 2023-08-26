@@ -44,6 +44,8 @@ const Nav = ({ categories }: Props) => {
     const open = Boolean(anchorEl);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+    console.log(data);
+
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -117,11 +119,11 @@ const Nav = ({ categories }: Props) => {
                             ) : (
                                 <div>
                                     <MenuItem>
-                                        <Link href={"/auth/login"}>Sigin</Link>
+                                        <Link href={"/auth/signin"}>Sigin</Link>
                                     </MenuItem>
                                     <MenuItem>
                                         <Link href={"/auth/signup"}>
-                                            Register
+                                            Signup
                                         </Link>
                                     </MenuItem>
                                     {/* <MenuItem>Logout</MenuItem> */}

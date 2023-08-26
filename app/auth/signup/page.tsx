@@ -39,7 +39,13 @@ const Login = () => {
             confirmPassword: "",
             referalCode: "",
         },
-        onSubmit: () => {},
+        onSubmit: async (values) => {
+            try {
+                const res = await axios.post("/api/user/register", {
+                    ...values,
+                });
+            } catch (error) {}
+        },
         validationSchema,
     });
     return (
@@ -157,6 +163,7 @@ const Login = () => {
                                 Or
                             </p>
                             <Button
+                                type='submit'
                                 className='bg-c4a hover:bg-c4b font-semibold capitalize w-full'
                                 variant='contained'
                                 endIcon={<Google />}

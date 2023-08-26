@@ -7,6 +7,8 @@ import { Button } from "@mui/material";
 import { Google } from "@mui/icons-material";
 import Link from "next/link";
 import InputField from "@/components/form/InputField";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const validationSchema = yup.object({
     email: yup
@@ -15,12 +17,29 @@ const validationSchema = yup.object({
         .required("Email is requireds"),
 });
 const Login = () => {
+    const { data, status } = useSession();
+    const router = useRouter();
+
+    console.log(status);
+    if (status == "authenticated") {
+        router.push("/");
+    }
+
     const formik = useFormik({
         initialValues: {
             email: "",
             password: "",
         },
-        onSubmit: () => {},
+        onSubmit: async (values) => {
+            let res = await signIn("credentials", {
+                ...values,
+                callbackUrl: `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}`,
+                redirect: true,
+            });
+
+            console.log(res);
+        },
+
         validationSchema,
     });
     return (
